@@ -12,6 +12,6 @@
     <WebStackScaffolding_DbContextTypeFullName>MyTestApp5536.Data.MyTestApp5536Context</WebStackScaffolding_DbContextTypeFullName>
     <WebStackScaffolding_IsAsyncSelected>False</WebStackScaffolding_IsAsyncSelected>
     <WebStackScaffolding_IsViewGenerationSelected>True</WebStackScaffolding_IsViewGenerationSelected>
-    <NameOfLastUsedPublishProfile>MyTestApp5536 - Web Deploy1</NameOfLastUsedPublishProfile>
+    <NameOfLastUsedPublishProfile>C:\Projekte\AzureTest\MyTestApp5536\MyTestApp5536\Properties\PublishProfiles\MyTestApp5536 - Web Deploy1.pubxml</NameOfLastUsedPublishProfile>
   </PropertyGroup>
 </Project>
