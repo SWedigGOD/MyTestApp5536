@@ -40,7 +40,7 @@ namespace MyTestApp5536
                     Password);*/
             
             services.AddDbContext<MyTestApp5536Context>(options =>
-                    options.UseNpgsql(Configuration.GetConnectionString("CUSTOMCONNSTR_MyDbConnection")));
+                    options.UseNpgsql(Configuration.GetConnectionString("ConnectionStrings:MyDbConnection")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
