@@ -39,6 +39,7 @@ namespace MyTestApp5536
                     Port,
                     Password);*/
             //Configuration["My:Hierarchical:Config:Data"];
+            Console.WriteLine(Configuration.GetConnectionString("MyDbConnection"));
             services.AddDbContext<MyTestApp5536Context>(options =>
                     options.UseNpgsql(Configuration.GetConnectionString("MyDbConnection")));
         }
