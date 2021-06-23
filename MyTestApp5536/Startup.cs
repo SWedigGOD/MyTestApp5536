@@ -38,7 +38,7 @@ namespace MyTestApp5536
                     Port,
                     Password);*/
             services.AddDbContext<MyTestApp5536Context>(options =>
-                    options.UseNpgsql(Configuration.GetConnectionString("MyDbConnection")));
+                    options.UseNpgsql(Configuration.GetConnectionString("MyTestApp5536Context")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
