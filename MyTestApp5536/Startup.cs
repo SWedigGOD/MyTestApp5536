@@ -31,14 +31,14 @@ namespace MyTestApp5536
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
-            string conStr = "Database=mypgsqldb; Data Source=mytestpostgredb5536.postgres.database.azure.com; User Id=SWedig@mytestpostgredb5536; Password=TcvDzE8cBjVbLmy";/*String.Format(Configuration.GetConnectionString("MyTestApp5536Context"),
+            string conStr = "Server=mytestpostgredb5536.postgres.database.azure.com;Database=mypgsqldb;Port=5432;User Id=SWedig@mytestpostgredb5536;Password=TcvDzE8cBjVbLmy;Ssl Mode=Require;";/*"Database=mypgsqldb; Data Source=mytestpostgredb5536.postgres.database.azure.com; User Id=SWedig@mytestpostgredb5536; Password=TcvDzE8cBjVbLmy";/*String.Format(Configuration.GetConnectionString("MyTestApp5536Context"),
                     Host,
                     User,
                     DBname,
                     Port,
                     Password);*/
             services.AddDbContext<MyTestApp5536Context>(options =>
-                    options.UseNpgsql(Configuration.GetConnectionString("MyTestApp5536Context")));
+                    options.UseNpgsql(conStr/*Configuration.GetConnectionString("MyTestApp5536Context")*/));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
