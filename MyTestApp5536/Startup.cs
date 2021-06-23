@@ -40,7 +40,6 @@ namespace MyTestApp5536
                     Port,
                     Password);*/
             //Configuration["My:Hierarchical:Config:Data"];
-
             services.AddDbContext<MyTestApp5536Context>(options =>
                     options.UseNpgsql(Configuration.GetConnectionString("POSTGRESQLCONNSTR_MyDbConnection")));
         }
