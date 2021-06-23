@@ -31,12 +31,12 @@ namespace MyTestApp5536
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
-            string conStr = String.Format(Configuration.GetConnectionString("MyTestApp5536Context"),
+            string conStr = "Database=mypgsqldb; Data Source=mytestpostgredb5536.postgres.database.azure.com; User Id=SWedig@mytestpostgredb5536; Password=TcvDzE8cBjVbLmy";/*String.Format(Configuration.GetConnectionString("MyTestApp5536Context"),
                     Host,
                     User,
                     DBname,
                     Port,
-                    Password);
+                    Password);*/
             services.AddDbContext<MyTestApp5536Context>(options =>
                     options.UseNpgsql(conStr));
         }
