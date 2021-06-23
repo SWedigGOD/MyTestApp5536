@@ -15,6 +15,11 @@ namespace MyTestApp5536
 {
     public class Startup
     {
+        private static string Host = "mytestpostgredb5536.postgres.database.azure.com";
+        private static string User = "SWedig@mytestpostgredb5536";
+        private static string DBname = "mypgsqldb";
+        private static string Password = "TcvDzE8cBjVbLmy";
+        private static string Port = "5432";
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -26,7 +31,12 @@ namespace MyTestApp5536
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
-
+            string conStr = String.Format(Configuration.GetConnectionString("MyTestApp5536Context"),
+                    Host,
+                    User,
+                    DBname,
+                    Port,
+                    Password);
             services.AddDbContext<MyTestApp5536Context>(options =>
                     options.UseSqlite(Configuration.GetConnectionString("MyTestApp5536Context")));
         }
