@@ -10,7 +10,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using MyTestApp5536.Data;
-using System.Configuration;
 
 namespace MyTestApp5536
 {
@@ -41,7 +40,7 @@ namespace MyTestApp5536
                     Password);*/
             //Configuration["My:Hierarchical:Config:Data"];
             services.AddDbContext<MyTestApp5536Context>(options =>
-                    options.UseNpgsql(Configuration.GetConnectionString("POSTGRESQLCONNSTR_MyDbConnection")));
+                    options.UseNpgsql(Configuration.GetConnectionString("MyDbConnection")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
