@@ -151,3 +151,11 @@ C:\Projekte\AzureTest\MyTestApp5536\MyTestApp5536\obj\Debug\net5.0\Razor\Views\T
 C:\Projekte\AzureTest\MyTestApp5536\MyTestApp5536\obj\Debug\net5.0\Razor\Views\TestModels\Index.cshtml.g.cs
 C:\Projekte\AzureTest\MyTestApp5536\MyTestApp5536\bin\Debug\net5.0\Npgsql.dll
 C:\Projekte\AzureTest\MyTestApp5536\MyTestApp5536\bin\Debug\net5.0\Npgsql.EntityFrameworkCore.PostgreSQL.dll
+C:\Projekte\AzureTest\MyTestApp5536\MyTestApp5536\bin\Debug\net5.0\Azure.Core.dll
+C:\Projekte\AzureTest\MyTestApp5536\MyTestApp5536\bin\Debug\net5.0\Azure.Identity.dll
+C:\Projekte\AzureTest\MyTestApp5536\MyTestApp5536\bin\Debug\net5.0\Azure.Security.KeyVault.Secrets.dll
+C:\Projekte\AzureTest\MyTestApp5536\MyTestApp5536\bin\Debug\net5.0\Microsoft.Identity.Client.Extensions.Msal.dll
+C:\Projekte\AzureTest\MyTestApp5536\MyTestApp5536\bin\Debug\net5.0\System.Memory.Data.dll
+C:\Projekte\AzureTest\MyTestApp5536\MyTestApp5536\bin\Debug\net5.0\Azure.Storage.Blobs.dll
+C:\Projekte\AzureTest\MyTestApp5536\MyTestApp5536\bin\Debug\net5.0\Azure.Storage.Common.dll
+C:\Projekte\AzureTest\MyTestApp5536\MyTestApp5536\bin\Debug\net5.0\Azure.Storage.Queues.dll
