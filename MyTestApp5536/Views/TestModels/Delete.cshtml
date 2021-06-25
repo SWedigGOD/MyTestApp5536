@@ -11,14 +11,26 @@
     <h4>TestModel</h4>
     <hr />
     <dl class="row">
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Name)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Name)
         </dd>
     </dl>
-    
+    <h3>Files</h3>
+    <table class="table">
+        <tbody>
+            @foreach (var item in Model.Filenames) {
+                <tr>
+                    <td>
+                        <label class="control-label">@item</label>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
     <form asp-action="Delete">
         <input type="hidden" asp-for="Id" />
         <input type="submit" value="Delete" class="btn btn-danger" /> |

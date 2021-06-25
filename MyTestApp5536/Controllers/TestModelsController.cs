@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using MyTestApp5536.Data;
 using MyTestApp5536.Models;
 using Azure.Storage.Blobs;
+using Azure.Storage.Blobs.Specialized;
 using Microsoft.AspNetCore.Http;
 using System.IO;
 
@@ -37,10 +38,12 @@ namespace MyTestApp5536.Controllers {
             if (testModel == null) {
                 return NotFound();
             }
-
-            var container = await createContainer(testModel);
-            testModel.Filenames = container.GetBlobs().Select(x => x.Name).ToList();
+            await setFilenames(testModel);
             return View(testModel);
+        }
+        private async Task setFilenames(TestModel testModel) {
+            var container = await getContainer(testModel);
+            testModel.Filenames = container.GetBlobs().Where(x => x.Name.StartsWith(testModel.Id + "/")).Select(x => x.Name.Replace(testModel.Id + "/", "")).ToList();
         }
 
         // GET: TestModels/Create
@@ -58,24 +61,16 @@ namespace MyTestApp5536.Controllers {
                 _context.Add(testModel);
                 await _context.SaveChangesAsync();
                 await uploadFiles(testModel);
-                //var container = await createContainer(testModel);
-
-                //foreach (var filename in Filenames) {
-                //    FileStream s = new FileStream(filename, FileMode.Open);
-                //    await container.UploadBlobAsync(filename, s);
-                //}
-
-                //Filenames.Clear();
                 return RedirectToAction(nameof(Index));
             }
             return View(testModel);
         }
         private async Task uploadFiles(TestModel testModel) {
-            var container = await createContainer(testModel);
+            var container = await getContainer(testModel);
 
             foreach (var filename in Filenames) {
                 FileStream s = new FileStream(filename, FileMode.Open);
-                await container.UploadBlobAsync(filename, s);
+                await container.UploadBlobAsync(testModel.Id + "/" + filename, s);
                 s.Close();
                 System.IO.File.Delete(filename);
             }
@@ -93,8 +88,7 @@ namespace MyTestApp5536.Controllers {
             if (testModel == null) {
                 return NotFound();
             }
-            var container = await createContainer(testModel);
-            testModel.Filenames = container.GetBlobs().Select(x => x.Name).ToList();
+            await setFilenames(testModel);
             return View(testModel);
         }
 
@@ -124,8 +118,8 @@ namespace MyTestApp5536.Controllers {
             }
             return View(testModel);
         }
-        private async Task<BlobContainerClient> createContainer(TestModel testModel) {
-            BlobContainerClient container = new BlobContainerClient(Config.StorageACConStr, "con" + testModel.Id.ToString());
+        private async Task<BlobContainerClient> getContainer(TestModel testModel) {
+            BlobContainerClient container = new BlobContainerClient(Config.StorageACConStr, "filecontainer");
             await container.CreateIfNotExistsAsync();
             return container;
         }
@@ -141,7 +135,7 @@ namespace MyTestApp5536.Controllers {
                 return NotFound();
             }
             testModel.Filenames.Remove(filename);
-            var container = await createContainer(testModel);
+            var container = await getContainer(testModel);
             container.DeleteBlob(filename);
             return View("Edit", testModel);
         }
@@ -156,7 +150,7 @@ namespace MyTestApp5536.Controllers {
             if (testModel == null) {
                 return NotFound();
             }
-
+            await setFilenames(testModel);
             return View(testModel);
         }
 
@@ -167,15 +161,17 @@ namespace MyTestApp5536.Controllers {
             var testModel = await _context.TestModel.FindAsync(id);
             _context.TestModel.Remove(testModel);
             await _context.SaveChangesAsync();
+            var container = await getContainer(testModel);
+            await setFilenames(testModel);
+            //await container.DeleteAsync();
+            foreach (var file in testModel.Filenames) {
+                container.DeleteBlob(testModel.Id + "/" + file);
+            }
             return RedirectToAction(nameof(Index));
         }
 
         private bool TestModelExists(int id) {
             return _context.TestModel.Any(e => e.Id == id);
-        }
-        [HttpPost, ActionName("AddImage2")]
-        public async Task<IActionResult> AddImage2(ICollection<IFormFile> files) {
-            return await AddImage(files);
         }
         [HttpPost, ActionName("AddImage")]
         public async Task<IActionResult> AddImage(ICollection<IFormFile> files) {
