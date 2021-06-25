@@ -42,7 +42,7 @@ namespace MyTestApp5536.Controllers {
             return View(testModel);
         }
         private async Task setFilenames(TestModel testModel) {
-            var container = await getContainer(testModel);
+            var container = getContainer(testModel);
             testModel.Filenames = container.GetBlobs().Where(x => x.Name.StartsWith(testModel.Id + "/")).Select(x => x.Name.Replace(testModel.Id + "/", "")).ToList();
         }
 
@@ -66,7 +66,7 @@ namespace MyTestApp5536.Controllers {
             return View(testModel);
         }
         private async Task uploadFiles(TestModel testModel) {
-            var container = await getContainer(testModel);
+            var container = getContainer(testModel);
 
             foreach (var filename in Filenames) {
                 FileStream s = new FileStream(filename, FileMode.Open);
@@ -118,9 +118,9 @@ namespace MyTestApp5536.Controllers {
             }
             return View(testModel);
         }
-        private async Task<BlobContainerClient> getContainer(TestModel testModel) {
+        private BlobContainerClient getContainer(TestModel testModel) {
             BlobContainerClient container = new BlobContainerClient(Config.StorageACConStr, "filecontainer");
-            await container.CreateIfNotExistsAsync();
+            //await container.CreateIfNotExistsAsync();
             return container;
         }
         
@@ -135,7 +135,7 @@ namespace MyTestApp5536.Controllers {
                 return NotFound();
             }
             testModel.Filenames.Remove(filename);
-            var container = await getContainer(testModel);
+            var container = getContainer(testModel);
             container.DeleteBlob(filename);
             return View("Edit", testModel);
         }
@@ -161,7 +161,7 @@ namespace MyTestApp5536.Controllers {
             var testModel = await _context.TestModel.FindAsync(id);
             _context.TestModel.Remove(testModel);
             await _context.SaveChangesAsync();
-            var container = await getContainer(testModel);
+            var container = getContainer(testModel);
             await setFilenames(testModel);
             //await container.DeleteAsync();
             foreach (var file in testModel.Filenames) {

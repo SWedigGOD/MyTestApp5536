@@ -45,6 +45,8 @@ namespace MyTestApp5536 {
                 if (Config.StorageACConStr == null)
                     Config.StorageACConStr = "DefaultEndpointsProtocol=https;EndpointSuffix=core.windows.net;AccountName=teststorageac5536;AccountKey=+i0qNITgie6J2jtKaPt8i7cYo/MPLVL9Qk5T0KoDUvSSkQfdauRpXidTC/vtz+m+4XV+NqdsLBdatl7cspyWxg==";
             }
+            BlobContainerClient container = new BlobContainerClient(Config.StorageACConStr, "filecontainer");
+            container.CreateIfNotExists();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
